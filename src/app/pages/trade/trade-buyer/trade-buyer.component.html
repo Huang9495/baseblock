@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="col-lg-12">
+
+		<select name="account" (change)="clickAddress($event)">
+		  <option *ngFor="let account of accounts" >{{account}}</option>
+		</select>
+		<h3>You have {{model.balance}} META</h3>
+
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-lg-12">
+
+	<label for="amount">Amount:</label>
+	<input type="text" id="amount" placeholder="e.g., 95" class="form-control" (change)="setAmount($event)">
+
+	<label for="receiver">To Address:</label>
+	<input type="text" id="receiver" placeholder="e.g., 0x93e66d9baea28c17d9fc393b53e3fbdd76899dae" class="form-control" (change)="setReceiver($event)">
+	
+	
+	<button type="button" class="btn btn-primary btn-with-icon btn-sm" id="send" (click)="sendCoin()">
+            <i class="nb-home"></i>Send MetaCoin
+            <span>Icon Button</span>
+    </button>
+	
+	<span id="status">{{status}}</span>
+
+  </div>
+</div>
