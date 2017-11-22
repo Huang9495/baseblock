@@ -23,4 +23,8 @@ export class ContractService {
 	return this.http.get(environment.baseUrl+'/contracts').map(res =>res.json());
   }
 
+  getLocalEscrowContract(): Observable<any> {
+	return this.http.get('./build/contracts/LocalEthereumEscrows.json').map(res =>res.json());
+  }  
+
 }

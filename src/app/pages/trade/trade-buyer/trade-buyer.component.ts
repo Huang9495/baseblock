@@ -52,7 +52,7 @@ export class TradeBuyerComponent implements OnInit, OnDestroy {
     this.watchAccount();
 
     var self = this;
-    this.contractService.getEscrowContract().subscribe(
+    this.contractService.getLocalEscrowContract().subscribe(
             data => {
 
             var metacoin_artifacts = data;
