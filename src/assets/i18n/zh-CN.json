@@ -1,0 +1,122 @@
+{
+    "welcome":"欢迎使用本应用",
+    "hello":"你好",
+    "get-lang":"获取语言类型",
+
+    "register":"注册",
+    "login":"登陆",
+    "logout":"登出",
+    "notification":"通知",
+    "view":"更多",
+    "view more":"更多",
+    "learn more":"了解更多",
+    "help":"帮助",
+    "encrypted chat":"加密聊天",
+    "chat":"聊天",
+    "create a offer":"卖家创建交易出价",
+
+    "profile":"个人信息",
+    "referral":"引荐",
+    "verification":"验证",
+    "security":"安全",
+    "kyc":"了解客户",
+
+    "sms":"短信",
+    "send sms":"发送短信",
+    "email":"邮件",
+    "send":"发送",
+
+
+    "status":"状态",
+    "time":"时间",
+
+    "wallet":"钱包",
+    "setting":"设置",
+    "transaction":"交易",
+    "seller offer":"卖家出价",
+
+    "import wallet":"加载钱包",
+    "new wallet":"创建钱包",
+    "address":"地址",
+    "balance":"余额",
+
+    "help":"帮助",
+    "share":"分享",
+    "copy":"复制",
+    "create":"创建",
+    "delete":"删除",
+    "invite":"邀请",
+    "open":"开放",
+    "closed":"关闭",
+    "expired":"超时",
+    "invitation":"邀请",
+    "accept":"接受",
+    "reject":"拒绝",
+    "remaing time":"剩余时间",
+    "cancel":"取消",
+    "seller":"卖家",
+    "buyer":"买家",
+    "payment":"付费",
+    "payment method":"付费方式",
+
+    "raise a ticket":"请求帮助",
+
+
+    "buys from":"交易中",
+    "open trade":"开始交易",
+    "deposit":"保存币到合约",
+    "waiting":"等待对方的动作...",
+    "pay":"支付",
+    "release":"将币从合约释放给买家",
+    "transfer":"将钱转给卖家",
+    "withdraw":"将币从合约中取出来",
+
+    "you don't have any trade invitation":"你还没有任何交易邀请",
+    "you don't have any on-going trade":"你还没有任何交易在进行中",
+    "you don't have any trade":"你还没有任何交易",
+    "sorry! no offers found.":"抱歉，没有找到更多的交易信息",
+    "sorry! no notifications found.":"没有找到任何的通知",
+    "unlock your wallet in order to interact with the app":"为了正常使用应用，请将您的钱包解锁",
+    "sorry! no referrals found.":"没有找到任何的推荐.",
+
+
+    "please raise a ticket and our support team will reach back to you under 24 hours or less.":"我们的帮助团队会在24小时内帮你解决问题.",
+
+    "bank":"银行",
+    "wechat":"微信转账",
+    "alipay":"支付宝",
+    "cash":"现金",
+
+
+
+
+
+
+
+    "list-title-buy":"向以下来自全球各地的玩家购买以太坊:",
+    "list-title-sell":"向以下来自全球各地的玩家购卖以太坊:",
+
+    "proposer_title_one":"新的订单",
+    "proposer_title_two":"费用说明",
+    "proposer_title_three":"展示说明",
+
+    "proposer_type":"我想",
+    "proposer_tradingprice":"出售价设置",
+    "proposer_paymentmethods":"交易方式 ",
+    "proposer_tradinglimit":"交易限额 ",
+    "proposer_tradingterms":"交易说明 ",
+    "proposer_tradenote":"交易备注 ",
+    "proposer_autoreplies":"自动回复消息 ",
+    "proposer_seetinglimit":"限制设置",
+    "proposer_termandconditions":"注意事项 ",
+
+    "proposer_note_one":"必填 ",
+    "proposer_note_two":"选填 ",
+    "proposer_note_three":"建议填写 ",
+    "proposer_note_four":"客户下单后可见 ",
+    "proposer_note_five":"所有用户可见 "
+
+
+            
+
+}

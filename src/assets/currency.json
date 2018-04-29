@@ -1,0 +1,4 @@
+{"btc":{"type": "BTC", "value": "2018-4-12 0:00 ~ 2018-6-29 23:59 免费","volume":"成交额的 0.5 %","volume_pay":"0.005BTC","min_limit":"10BTC","price":"71260.09"},
+"eth":{"type": "ETH", "value": "2018-4-12 0:00 ~ 2018-6-29 23:59 免费","volume":"成交额的 0 %","volume_pay":"0.0ETH","min_limit":"13ETH","price":"3160.09"},
+"xrp":{"type": "XRP", "value":  "2018-4-12 0:00 ~ 2018-6-29 23:59 免费","volume":"成交额的 2.0 %","volume_pay":"0.02XRP","min_limit":"12XRP","price":"432.09"}
+}
