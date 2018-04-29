@@ -9,8 +9,16 @@ import {
   NbResetPasswordComponent,
 } from '@nebular/auth';
 
+import { AuthGuard } from './auth-guard.service';
+
+
 const routes: Routes = [
-  { path: 'pages', loadChildren: 'app/pages/pages.module#PagesModule' },
+  {
+     path: 'pages',
+     loadChildren: 'app/pages/pages.module#PagesModule',
+     //canActivate: [AuthGuard]
+  },
+
   {
     path: 'auth',
     component: NbAuthComponent,
@@ -41,7 +49,10 @@ const routes: Routes = [
       },
     ],
   },
+  //初始页面从新导向ligin该路径
+  //{ path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '', redirectTo: 'pages', pathMatch: 'full' },
+  //这里的双星号是什么意思？
   { path: '**', redirectTo: 'pages' },
 ];
 
