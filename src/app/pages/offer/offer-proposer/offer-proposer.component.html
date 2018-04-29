@@ -1,0 +1,313 @@
+<div class="container">
+  <div class="col-lg-8" style="margin:auto;">
+    <nb-card>
+        <h2>{{ 'welcome' | translate }}</h2>
+        <label>
+          {{ 'hello' | translate }}
+          <select #langSelect (change)="changeLang(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+          </select>
+        </label>
+        <nb-card-header><h2 style="font-family:Times;"><b>{{'proposer_title_one' | translate }}</b></h2></nb-card-header>
+        <nb-card-header>
+                    <b style="padding-bottom: 0.6rem; font-size:90%">{{'proposer_title_two' | translate}}:</b>
+                    <h6><li style="font-family:SimSuncss;padding-top: 0.3rem"*ngIf="datas" >{{datas.type}}广告费：<b>{{datas.value}}</b></li></h6>
+                    <h6><li style="font-family:SimSuncss;padding-top: 0.3rem" *ngIf="datas">{{datas.type}}成交手续费：{{datas.volume}}</li></h6>
+                    <h6><li style="font-family:SimSuncss;padding-top: 0.3rem" *ngIf="datas">成交金额为1{{datas.type}}，则需手续费为{{datas.volume_pay}},使用OTB支付获得50%折扣<a href="/account">去设置</a></li></h6>
+                    <h5 style="padding-bottom: 0.6rem; padding-top: 0.6rem ;font-size:90%" ><b>{{'proposer_title_three' | translate}}}:</b></h5>
+                    <h6><li style="font-family:SimSuncss;padding-top: 0.3rem" *ngIf="datas">广告有效期：<b>14天</b></li></h6>
+                    <h6><li style="font-family:SimSuncss;padding-top: 0.3rem" *ngIf="datas">账户余额需大于<b>{{datas.min_limit}}</b>,广告才可以显示</li></h6> 
+        </nb-card-header>   
+        <nb-card-body >
+             
+          <form  [formGroup]="form" >
+
+            <div class="form-group row">
+                <label class="col-sm-3 form-control-label" style="padding-top:0.3em;"><h5 style="text-align:right; font-family:Times;"><b>{{'proposer_type' | translate }}</b></h5>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_one' | translate }}</span></label>
+                <div class="col-sm-2 " style="padding-top: 0.7rem;
+    padding-left: 2rem;">
+                      <p-dropdown [options]="datas1" [(ngModel)]="selectedCities1" [style]="{'width':'150px','padding-top':'0.7rem;'}" placeholder="Choose" [showClear]="true" (onChange)="onmultiselet1($event.value)" ></p-dropdown>
+                      
+                </div>
+                <div class="col-sm-3" style="padding-top: 0.7rem;
+    padding-left: 4.5rem;">
+                      <p-dropdown [options]="datas2" [(ngModel)]="selectedCities1" [style]="{'width':'150px','padding-top':'0.7rem;'}"  filter="true" placeholder="Choose" [showClear]="true"(onChange)="onmultiselet1($event.value)"></p-dropdown>
+                      <ng-template let-item pTemplate="selectedItem">
+                          <span style="vertical-align:middle">{{datas2.label}}</span>
+                      </ng-template>
+                      <ng-template let-car pTemplate="item">
+                          <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                              <div style="font-size:14px;float:right;margin-top:4px">{{datas2.label}}</div>
+                          </div>
+                      </ng-template>
+                </div>
+                <div class="col-sm-1 convert-mark" style="     padding-top: 1rem;
+    padding-left: 2rem;">
+                    <i class="fa fa-exchange" aria-hidden="true"></i>
+                </div>
+                <div class="col-sm-3" style="padding-top: 0.7rem;">
+                      <p-dropdown [options]="datas3" [(ngModel)]="selectedCities1" [style]="{'width':'150px','padding-top':'0.7rem;'}" placeholder="Choose" [showClear]="true" (onChange)="onmultiselet1($event.value)"></p-dropdown>
+                      <ng-template let-item pTemplate="selectedItem">
+                          <span style="vertical-align:middle">{{datas3.label}}</span>
+                      </ng-template>
+                      <ng-template let-car pTemplate="item">
+                          <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                              <div style="font-size:14px;float:right;margin-top:4px">{{datas3.label}}</div>
+                          </div>
+                      </ng-template>
+                </div>
+
+                <!--<div class="col-sm-2">
+                    <button type="button" class="btn btn-lg btn-primary btn-block"  >OKAY</button>
+                </div>-->
+            </div>
+
+
+            <div class="form-group row">
+                <label class="col-sm-3 form-control-label" style="padding-top:0.3em;"><h5 style="text-align:right; font-family:Times;"><b>{{'proposer_tradingprice' | translate }}</b></h5>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_one' | translate }}</span></label>
+
+
+                <div class="col-sm-9 row">
+                    <div class="row">
+                        <div class="col-sm-4" style="    padding-top: 0.4rem;">
+                            <div class="row" ><label style="    font-size: 70%;padding-left: 0.9rem;"class="select optional control-label" for="js-crypto-source-select">市场价对标交易所</label></div>
+                            <div clase="row">
+                                  <p-dropdown [options]="datas4" [(ngModel)]="selectedCities1" [style]="{'width':'150px','padding-top':'0.7rem;'}" placeholder="Choose" [showClear]="true" (onChange)="onmultiselet1($event.value)"></p-dropdown>
+                                  <ng-template let-item pTemplate="selectedItem">
+                                      <span style="vertical-align:middle">{{datas4.label}}</span>
+                                  </ng-template>
+                                  <ng-template let-car pTemplate="item">
+                                      <div class="ui-helper-clearfix" style="position: relative;height: 25px;">
+                                          <div style="font-size:14px;float:right;margin-top:4px">{{datas4.label}}</div>
+                                      </div>
+                                  </ng-template>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 row">
+
+                                  <div class="col-md-6">
+                                    <div class="form-group decimal optional disabled buy_offer_price"><label style="font-size: 70% " class="decimal optional disabled control-label" for="js-offer-price">你的报价</label><input style=" height: 30px;width: 170px;padding-left: 2.8rem; margin-right: 0.7rem;"id="js-offer-price" value="43719.54" class="numeric decimal optional disabled form-control" disabled="disabled" type="number" step="any" name="buy_offer[price]"></div>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                    <div class="form-group">
+                                      <label style="  font-size: 70%;padding-left: 1.5rem; " for="js-offer-price">当前市场最高收购价</label>
+                                      <input style="    height: 30px;width: 170px;padding-left: 3rem;margin-left: 1.5rem;margin-right: 2rem;" *ngIf="datas" type="number" name="market_reference_price" id="market_reference_price" value="{{datas.price}}" disabled="disabled" class="form-control disabled">
+                                    </div>
+                                 </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <label class="decimal optional control-label" for="buy_offer_margin" style=" font-size: 70%;padding-top: 1rem;">溢价设置</label><i class="fa fa-question-circle"></i>
+                             <!--><input type="hidden" name="market_price" id="js-offer-market_price" value="43719.536813333333333333" data-market-price="43719.536813333333333333" data-decimal-scale="2"><!-->
+                            <p-slider [(ngModel)]="val1" [style]="{'width':'300px'}" [animate]="true" (onChange)="handleChange($event)" (onSlideEnd)="handleChange($event)"></p-slider>
+                    </div>
+                    <div class="input-group col-md-6">
+                      <!--><input  id="js-offer-commission" type="number" value="{{val1}}" name="buy_offer[margin]" disabled="disabled" class="form-control disabled"><!-->
+                      <span class="input-group-addon input-group-addon-add" aria-describedby="margin_minus" style="padding-top: 1.5rem;">-</span>
+                      <span class="input-group-addon-percent"><input style="height: 30px;width: 170px;margin-top: 1.5rem; " *ngIf="evect" step="0.01" value="0" type="number" name="market_reference_price" id="market_reference_price" value="{{evect.value}}" disabled="disabled" class="form-control disabled"></span>
+                      <span style="padding-top: 1.7rem">%</span>
+                      <span class="input-group-addon input-group-addon-add" aria-describedby="margin_plus" style="padding-top: 1.5rem;" step="0.01" (click)="onSubmit($event.value)">+</span>
+                      <div class="margin-percent-tip" style="font-size: 70%;padding-left: 2rem">(溢价仅计算到小数后两位)</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12  ">
+                          
+                          <div class="form-group decimal required buy_offer_maximum_price" style="padding-top: 2rem;"><label style="font-size: 70% " class="decimal required control-label" for="buy_offer_maximum_price"> 可接受最高单价</label><input style=" height: 30px;" min="0" class="numeric decimal required form-control" type="number" step="any" name="buy_offer[maximum_price]" id="buy_offer_maximum_price"></div>
+                        </div>
+                    </div>  
+
+                </div>
+            </div>
+          
+
+
+
+            <div class="form-group row" >  <!-- [hidden]="!selected"  -->
+                <label label class="col-sm-3 form-control-label" style="padding-top:0.3em;"><h5 style="text-align:right; font-family:Times"><b>{{'proposer_paymentmethods' | translate }}</b></h5>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_one' | translate }}</span></label>
+
+                <!-->payment_methods<!-->
+
+                <div class="ui-g col-sm-9 row" style="width:250px;margin-bottom:10px">
+                    <div class="ui-g-12" style="padding-top: 0.6rem;"><p-checkbox name="checkbox1" value="Bank Transfer" label="Bank Transfer" [(ngModel)]="datas5" inputId="bank"></p-checkbox></div>
+                    <div class="ui-g-12" style="padding-top: 0.6rem;"><p-checkbox name="checkbox1" value="Alipay" label="Alipay" [(ngModel)]="datas5" inputId="alipay"></p-checkbox></div>
+                    <div class="ui-g-12" style="padding-top: 0.6rem;"><p-checkbox name="checkbox1" value="WeChat" label="WeChat" [(ngModel)]="datas5" inputId="wechat"></p-checkbox></div>
+                    <div class="ui-g-12" style="padding-top: 0.6rem;"><p-checkbox name="checkbox1" value="Cash" label="Cash" [(ngModel)]="datas5" inputId="cash"></p-checkbox></div>
+
+                </div>
+
+                
+                <!--<div class="col-sm-2">
+                  <button type="button" class="btn btn-lg btn-primary btn-block" >OKAY</button>
+                </div>-->
+            </div>
+
+
+
+
+            <div class="form-group row" >   <!-- [hidden]="!selected2"  -->
+                <label class="col-sm-3 form-control-label" style="padding-top:0.3em;"><h5 style="text-align:right; font-family:Times"><b>{{'proposer_tradinglimit' | translate }}</b></h5>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_one' | translate }}</span></label>
+                <div class="col-sm-9 row">
+
+                      <div class="col-sm-4 form-group decimal required buy_offer_maximum_price"><label style="font-size: 70%;" class="decimal required control-label" for="buy_offer_maximum_price"> 最小限额</label> <span style="font-size: 60%;" class="offer-new-label-title-tip">（一次交易的最低的交易限制）</span><input class="numeric decimal required form-control" name = "payment" min="limit_low"  type="number" step="any" placeholder="0">     
+                      </div><span style="padding-top: 2.2rem;">USD</span>
+                      <div style="margin-left: 4rem;" class="col-sm-4 form-group decimal required buy_offer_maximum_price"><label style="font-size: 70%;" class="decimal required control-label" for="buy_offer_maximum_price"> 最大限额</label><span style="font-size: 60%;" class="offer-new-label-title-tip">（一次交易的最高的交易限制）</span><input class="numeric decimal required form-control" name = "payment" min="limit_high" type="number" step="any"  placeholder="100000">
+                      </div><span style="padding-top: 2.2rem;">USD</span>
+                </div>
+            </div>            
+
+
+
+
+
+
+            <div class="form-group row" style=" margin-top: 3rem;">   <!-- [hidden]="!selected2"  -->
+                <label class="col-sm-3 form-control-label" style="padding-top:0.3em;"><h5 style="text-align:right; font-family:Times"><b>{{'proposer_tradingterms' | translate }}</b></h5>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_five' | translate }}</span>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_three' | translate }}</span></label>
+                <div class="col-sm-9 row" style="padding-left: 2.5rem;">
+                    <!--><div class="row"  > 
+                      <p-toolbar id="p-toolbar-1" style="width:590px">
+                        <span class="button_group text_tools">
+                          <button type="button" class="bold" data-trix-attribute="bold" data-trix-key="b" title="Bold">Bold</button>
+                          <button type="button" class="italic" data-trix-attribute="italic" data-trix-key="i" title="Italic">Italic</button>
+                          <button type="button" class="strike" data-trix-attribute="strike" title="Strikethrough">Strikethrough</button>
+                          <button type="button" class="link" data-trix-attribute="href" data-trix-action="link" data-trix-key="k" title="Link">Link</button>
+                          <button type="button" class="quote" data-trix-attribute="quote" title="Quote">Quote</button>
+                          <button type="button" class="code" data-trix-attribute="code" title="Code">Code</button>
+                          <button type="button" class="list bullets" data-trix-attribute="bullet" title="Bullets">Bullets</button>
+                        </span>
+                      </p-toolbar>
+                    </div><!-->
+                    <div class="row">
+                        <p-editor [(ngModel)]="text1" [placeholder]="Value" [style]="{'height':'320px','width':'590px'}">
+                                <p-header>
+                                    <span class="ql-formats">
+                                          
+                                                <button class="ql-bold" aria-label="Bold"></button>
+                                                <button class="ql-italic" aria-label="Italic"></button>
+                                                <button class="ql-underline" aria-label="Underline"></button>
+                                                <button class="ql-strike" aria-label="Strike"></button>
+                                                <button class="ql-link" aria-label="Href"></button>
+                                                <button class="ql-quote" aria-label="Quote"></button>
+                                                <button class="ql-code" aria-label="Code"></button>
+                                                <button class="ql-list bullets" aria-label="Bullets"></button>
+                                                <button class="ql-list numbers" aria-label="number"></button>
+                                                <button class="ql-block-level decrease" aria-label="decreaseBlockLevel" ></button>
+                                                <button class="ql-block-level increase" aria-label="increaseBlockLevel" ></button>
+                                                <button class="ql-undo" aria-label="Undo"></button>
+                                                <button class="ql-redo" aria-label="Redo"></button> 
+                                         
+                                    </span>
+                                </p-header>
+                                <p>Value: {{text1||'empty'}}</p>
+                        </p-editor>
+                        
+                    </div>
+                </div>
+
+
+                   <!--> <div class="row">
+
+                    <button pButton type="button" label="Clear" icon="fa-close" (click)="text1=null"></button><
+                    </div>！-->
+                <!--><hr style="border-top:0px;border-color:#dde3e6"><!-->
+                
+            </div>
+
+            <div class="form-group row" style=" margin-top: 3rem;">   <!-- [hidden]="!selected2"  -->
+
+                <label class="col-sm-3 form-control-label" style="padding-top:0.3em;"><h5 style="text-align:right; font-family:Times"><b>{{'proposer_tradenote' | translate }}</b></h5>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_five' | translate }}</span>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_four' | translate }}</span></label>
+                <div class="col-sm-9 row" style="font-size:80%;    padding-left: 1.5rem;">
+                    <textarea rows="8" cols="76" pInputTextarea>
+转帐时请备注「订单编号后4位」以加快确认速度。
+请勿在汇款备注内填写比特币、BTC、OTC等任何数字币有关字眼，防止您的汇款被银行拦截
+
+银行帐号：xxxx xxxx xxxx xxxx 
+支付宝帐号：xxxxxxx 
+微信帐号：xxxxx 
+下单后可以直接加我微信跟我联系，我会尽快回复。
+                    </textarea>
+                </div>
+            </div>
+
+
+            <div class="form-group row" style=" margin-top: 3rem;">   <!-- [hidden]="!selected2"  -->
+                <label class="col-sm-3 form-control-label" style="padding-top:0.3em;"><h5 style="text-align:right; font-family:Times"><b>{{'proposer_autoreplies' | translate }}</b></h5>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_two' | translate }}</span></label>
+                <div class="col-sm-9"    style="padding-top: 0.7rem;" >
+                    <div class="row" style="margin-left: 1rem;">
+                        <label style="font-size: 70%;" class="decimal required control-label" >Gretings</label><span style="font-size: 60%;" >（客户下单后，对话框自动发出此内容；留空，则不设置）</span>
+                    </div>
+                    <div class="row" style="margin-left: 1rem; padding-bottom: 1.2rem;">
+                        <input style="height: 40px; width: 596px;" id="input" type="text2" size="30" pInputText [(ngModel)]="text" placeholder="What is your alipay accout ?"> 
+                    </div>
+                    <div class="row"  style=" margin-left: 1rem;" >
+                        <label style="font-size: 70%;" class="decimal required control-label" >Gretings</label><span style="font-size: 60%;">（订单完成后，对话框自动发出此内容；留空，则不设置）</span>
+                    </div>
+                    <div class="row" style="margin-left: 1rem;">
+                        <input style="height: 40px; width: 596px;" id="input" type="text3" size="30" pInputText [(ngModel)]="text" placeholder="Please check your account , hope next trade !"> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" style=" margin-top: 3rem;" >   <!-- [hidden]="!selected2"  -->
+                <label class="col-sm-3 form-control-label" style="padding-top:0.3em;"><h5 style="text-align:right; font-family:Times"><b>{{'proposer_seetinglimit' | translate }}</b></h5>
+                <span class="description" style="text-align:right; font-size: .8462rem;color: #999;display: block; font-family:Times;">{{'proposer_note_two' | translate }}</span></label>
+                <div class="col-sm-9" style=" padding-left: 2rem;">
+                      <div class="form-group decimal required buy_offer_maximum_price"><label style="font-size: 70%;" class="decimal required control-label" for="buy_offer_maximum_price"> 同时最大处理订单数 (0 = 不限制) </label><input style="width: 45%;" min="0" class="numeric decimal required form-control" type="number" step="any" name="buy_offer[maximum_price]" id="buy_offer_maximum_price">
+                      </div>
+                      <div style="font-size: 70%;" class="form-group decimal required buy_offer_maximum_price"><label class="decimal required control-label" for="buy_offer_maximum_price"> 卖家必须成交过几次  </label><input style="width: 45%;" min="0" class="numeric decimal required form-control" type="number" step="any" name="buy_offer[maximum_price]" id="buy_offer_maximum_price">
+                      </div>
+                      <div class="ui-g-12" style="font-size:80%; padding-top: 0.5rem;"><p-checkbox  name="checkbox1" value="卖家必须通过实名验证" label="卖家必须通过实名验证" [(ngModel)]="datas5" inputId="bank"></p-checkbox>
+                      </div>
+                      <div class="ui-g-12" style="font-size: 80%; padding-top: 0.5rem;"><p-checkbox  name="checkbox1" value="卖家必须通过进阶验证" label="卖家必须通过进阶验证" [(ngModel)]="datas5" inputId="alipay"></p-checkbox>
+                      </div>
+                      <div class="ui-g-12" style="font-size: 70%;">设置限制可以让您筛选出可信度更高的交易对象，但过多的限制也将降低您接收订单的机率。
+                      </div>
+                </div>
+            </div>
+
+            <div class="form-group row" style=" margin-top: 3rem;">   <!-- [hidden]="!selected2"  -->
+                <label class="col-sm-3 form-control-label" style="padding-top:0.3em;"><h5 style="text-align:right; font-family:Times"><b>{{'proposer_termandconditions' | translate }}</b></h5></label>
+                <div class="col-sm-9" style="padding-left: 2rem;    padding-top: 0.5rem;">
+                      <li style="font-family:SimSuncss;font-size: 70% ;padding-bottom: 0.3rem;padding-right: 3rem;">OTCBTC 为了保证用户的交易安全，将采用数字货币托管系统。严禁绕过平台私下交易，违者将自行承担损失，且<b>永久封号</b>。</li>
+                      <li style="font-family:SimSuncss;font-size: 70%;padding-bottom: 0.3rem;padding-right: 3rem;">请在交易说明及交易备注中，详细写下您所希望的交易条件，以及与您交易所需注意的事项，明确的信息将提升您的交易成功机率及评价。</li>
+                      <li style="font-family:SimSuncss;font-size: 70%;padding-bottom: 0.3rem;padding-right: 3rem;">请勿在 OTCBTC 尝试欺诈行为，违者将会导致帐号被冻结，并承担法律责任。</li>
+                      <li style="font-family:SimSuncss;font-size: 70%;padding-bottom: 0.3rem;padding-right: 3rem;">发布广告后请履行契约精神，恶意抬价或者是反悔，被投诉将冻结账户 3-14 天不等。</li>
+                      <hr style="border-top:0px;border-color:#dde3e6 font-size: 90%;" >
+                      <b style="padding-bottom: 0.3rem;padding-right: 3rem;">注意！注意！注意！务必详细阅读以下信息，以确保您的交易安全</b>
+                      <li style="font-family:SimSuncss;font-size: 70%;padding-bottom: 0.3rem; padding-top: 0.5rem;padding-right: 3rem; ">交易过程中，请先确认卖家的真实姓名及收款信息再转账。</li>
+                      <li style="font-family:SimSuncss;font-size: 70%;padding-bottom: 0.3rem;padding-right: 3rem; ">交易过程中，不要透露与您账户安全有关的敏感资讯。</li>
+                      <li style="font-family:SimSuncss; font-size: 70%;padding-bottom: 0.3rem;padding-right: 3rem;">不要直接透露你的电子邮箱给卖家，否则有可能会收到诈骗信件，及对账户安全造成危害。</li>
+                      <li style="font-family:SimSuncss; font-size: 70%;padding-bottom: 0.3rem;padding-right: 3rem;">永远确保你在正确的 OTCBTC 网站上，请将网站记录在书签上，避免误闯钓鱼网站。</li>
+                      <li style="font-family:SimSuncss;font-size: 70%;padding-bottom: 0.3rem; margin-bottom: 3rem;padding-right: 3rem;">OTCBTC 员工将不会以官方名义与您进行交易，请不要与自称是 OTCBTC 的员工交易，避免利益损失。</li>
+                     
+                </div>
+
+
+
+            </div>
+
+              <hr style="border-top:0px">
+
+            <div class="form-group row" style=" margin-top: 4rem;"> 
+                  <div class="col-sm-12" style="padding-top:3em ">
+                      <button class="btn btn-lg btn-primary btn-block" (click)="onSubmit(form.value)" type="submit"  style="width:25em;height:50px;position: absolute;right: 13.5em; left: 13.5em; bottom: 1em; background:#0096e0;color:white;margin-left: 1rem;">POST MY OFFER</button>
+                  </div>
+                  <div class="col-sm-12" style="padding-top:3em ">
+                      <button class="btn btn-lg btn-primary btn-block" (click)="onSubmit(form.value)" type="submit"  style="width:25em;height:50px;position: absolute;right: 13.5em; left: 13.5em; bottom: 1em; background:#FFFFFF;color:blue;margin-left: 1rem;">Cancel</button>
+                  </div>
+            </div>
+
+          </form>
+        </nb-card-body>
+    </nb-card>
+  </div>
+</div>

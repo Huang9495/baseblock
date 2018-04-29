@@ -1,0 +1,133 @@
+<div class="form-group row" formGroupName="exchange">  <!-- [hidden]="!selected4"  -->
+              <label class="col-sm-4 form-control-label" style="padding-top:0.3em;padding-right:4em;"><h5 style="text-align:right; font-family:Times"><b>Exchange rate</b></h5></label>
+              <div class="col-sm-2">
+                <input type="text" class="form-control"  ngControl="rate"  style="height:39px" placeholder="0" >
+              </div>
+              <div class="col-sm-1">
+                <h6 style=" position: absolute;right: 25px;left: 25px;top: 10px;bottom: 10px;">%</h6>
+              </div>
+              <div class="col-sm-1">
+                <select class=" custom-select d-block w-100"   formControlName="type" >
+                    <option *ngFor="let data of datas4">{{data}}</option>
+                </select>
+              </div>
+              <div class="col-sm-4" style="padding-right:8em">
+                <select class=" custom-select d-block w-100"   formControlName="currency" >
+                    <option *ngFor="let data of datas5">{{data}}</option>
+                </select>
+              </div>
+              <!--<div class="col-sm-2">
+                <button type="button" class="btn btn-lg btn-primary btn-block" >OKAY</button>
+              </div>-->
+            </div>
+
+            <div class="form-group row" style="padding-left:20em">
+              <h6 style="text-align:right;font-family:Times">Currently, <b>1ETH</b> = <b>UZS5,826,400.00</b> which includes localethereum's 0.25% fee.</h6>
+              <h6 style="text-align:right;font-family:Times">The fee-inclusive rate for the buyer will be <b>UZS5,885,200.00.</b></h6>
+
+            </div>
+
+
+
+
+
+            <div class="form-group row" >    <!-- [hidden]="!selected5"  -->
+              <label class="col-sm-4 form-control-label" style="padding-top:0.3em;padding-right:4em;"><h5 style="text-align:right; font-family:Times"><b>Location</b></h5></label>
+              <div class="col-sm-8" style="padding-right:8em">
+                <select class=" custom-select d-block w-100"  formControlName="location" >
+                    <option *ngFor="let data of datas6">{{data}}</option>
+                </select>
+                <div>This is public.It's recommended to choose your closest major city.</div>
+              </div>
+              <!--<div class="col-sm-2">
+                  <button type="button" class="btn btn-lg btn-primary btn-block"  >OKAY</button>
+              </div>-->
+            </div>
+
+            <div class="form-group row">
+              <label class="col-sm-4 form-control-label" style="padding-top:0.3em;padding-right:4em;"><h5 style="text-align:right; font-family:Times"><b>Headline</b></h5></label>
+              <div class="col-sm-8" style="padding-right:8em " >
+                  <input type="text" class="form-control " formControlName="headline" placeholder="24 hour delivery" style="height:39px;">
+                <div>Optional: The headline field will appear alongside your listing.</div>
+              </div>
+            </div>
+
+          <!--
+            <div class="form-group row" [hidden]="!selected6">
+
+                <label class="col-sm-3 form-control-label">Linmits</label>
+                <div class="col-sm-4">
+                  <label class=" form-control-label">Minimum(in TOP)</label>
+                  <input type="text" class="form-control" formControlName="minimum" placeholder="0">
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-4">
+                  <label class=" form-control-label">Maximum(in TOP)</label>
+                  <input type="text" class="form-control" formControlName="maximum" placeholder="No limit">
+                </div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">Optional: This will prevent people from opening trades with volume that you can't or would prefer not to handle.</div>
+           </div>
+         -->
+
+
+
+            <!--
+            <div class="form-group row">
+              <label class="col-sm-3 form-control-label">Terms of trade</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control" formControlName="trade" placeholder="Meet up at any local cafe between 9 AM - 5 PM.">
+                <div>Optional: Use the terms of trade field to outline trade terms (e.g. meeting places, time restrictions and payment windows). Don't include any personal details here.</div>
+              </div>
+            </div>
+          -->
+            <hr class="mb-2">
+
+
+            <div class="form-group row" style="padding-top:1em">
+                          <div class="col-sm-5 " style="padding-left:8em;">
+                            <label for="country" style="padding-left:6.5em"><b>Country</b></label>
+                            <select class="custom-select d-block w-100" id="country" required="">
+                                <option *ngFor="let data of datas7">{{data}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                              Please select a valid country.
+                            </div>
+                          </div>
+                          <div class="col-sm-2 " >
+                            <label for="state" style="padding-left:6.5em"><b>State</b></label>
+                            <select class="custom-select d-block w-100" id="state" required="">
+                                <option *ngFor="let data of datas8">{{data}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                              Please provide a valid state.
+                            </div>
+                          </div>
+                          <div class="col-sm-5 " style="padding-right:8em;">
+                            <label for="zip" style="padding-left:6.5em"><b>Zip</b></label>
+                            <input type="text" class="form-control" id="zip" placeholder="" required="" style="height:39px; ">
+                            <div class="invalid-feedback">
+                              Zip code required.
+                            </div>
+                          </div>
+              </div>
+
+              <hr class="mb-2">
+
+              <div class="custom-control custom-checkbox " style="padding-top:1em;padding-bottom:0.3em; padding-left:7em">
+                <input type="checkbox" class="custom-control-input" id="same-address" style="border: 10px">
+                <label class="custom-control-label" for="same-address" style="text-align:right; font-family:Times">Shipping address is the same as my billing address</label>
+              </div>
+
+              <div class="custom-control custom-checkbox " style="padding-top:1em;padding-bottom:0.3em; padding-left:7em">
+                <input type="checkbox" class="custom-control-input" id="save-info" style="border: 10px">
+                <label class="custom-control-label" for="save-info" style="text-align:right; font-family:Times">Save this information for next time</label>
+              </div>
+
+              <hr class="mb-2">
+
+              <div style="padding-top:3em">
+                <button class="btn btn-lg btn-primary btn-block" (click)="onSubmit(form.value)" type="submit"  style="width:25em;height:50px;position: absolute;right: 13.5em; left: 13.5em; bottom: 1em; background:#0096e0;color:white">POST MY OFFER</button>
+              </div>
+
+          </form>

@@ -1,17 +1,53 @@
-<section class="hero is-medium is-info is-bold">
-  <div class="hero-body">
-    <div class="container">
- 
 
-        asdfafadafd
-
-    </div>
-  </div>
-</section>
-
-
-<div class="container">
-
-   asdfafadafd
-
+<div class="row">
+	<div class="col-lg-6">
+		<div class="row">
+			<h2>Buy ether from {{offer && offer.username}}</h2>
+			<h3><b>Trade amount</b></h3>
+			<h5><b>Limits: RUB10,000 - RUB500,000</b></h5>
+	        <div >
+	            <div class="form-group">
+	                <input type="number" class="form-control" placeholder="0" name="currency_amount" [(ngModel)]="currency_amount" (change)="convertToCurrency()" (input)="convertToCurrency($event.target.value)"
+><div><b>RUB</b></div>
+	            </div>
+	            <div class="form-group">
+	                <input type="number" class="form-control" placeholder="0" name="token_amount" [(ngModel)]="token_amount" (change)="convertToToken()" (input)="convertToToken($event.target.value)"
+><div><b>ETH</b></div>
+	            </div>
+	            <button type="button" class="btn btn-default"  (click)="openTrade()"><b>OPEN TRADE</b></button>
+	        </div>
+	        <div><h5>You'll be able to discuss the payment details with the seller using end-to-end encryption.</h5></div>
+	    </div>
+	    <div class="row">
+		    <div><b><h2> Encrypted chat </h2></b></div>
+				<div><b><h5> Once you open a trade, messages are end-to-end encrypted so your privacy is protected. The only case where we can read your messages is if either party initiates a dispute. </h5></b></div>
+	    </div>
+	</div>
+	<div class="col-lg-6">
+		<div class="row">
+			<h2>You are the <b>buyer</b></h2>
+		</div>
+		<div class="row">
+			<h2>1 ETH = <b>{{trade_ratio}}</b> Russian Ruble</h2>
+			<h5>The seller chose this price — only continue if you’re comfortable with it. This rate includes localethereum's 0.75% fee.</h5>
+		</div>
+		<div class="row">
+			<h3><b>Terms of trade with {{offer&&offer.username}}</b></h3>
+			<div>
+				  {{offer&&offer.description}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="data" *ngIf="offer">
+				<div><h5><b>Username:</b></h5><h5>{{offer.username}}</h5></div>
+				<div><h5><b>Identity key:</b></h5><h5>{{offer.identitykey}}</h5></div>
+				<div><h5><b>Registered:</b></h5><h5>{{offer.registered}}</h5></div>
+				<div><h5><b>Trades:</b></h5><h5>{{offer.trades}}</h5></div>
+				<div><h5><b>Volume:</b></h5><h5>{{offer.volume}}</h5></div>
+				<div><h5><b>Good feedback:</b></h5><h5>{{offer.goodfeedback}}</h5></div>
+				<div><h5><b>Email verified:</b></h5><h5>{{offer.emailverified}}</h5></div>
+				<div><h5><b>Phone verified:</b></h5><h5>{{offer.phoneverified}}</h5></div>
+			</div>
+		</div>
+	</div>
 </div>

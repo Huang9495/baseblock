@@ -1,19 +1,20 @@
- import { NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { OfferDetailComponent } from './offer-detail/offer-detail.component';
 import { OfferListComponent } from './offer-list/offer-list.component';
+import { OfferProposerComponent } from './offer-proposer/offer-proposer.component';
+import { OfferComponent} from './offer.component';
+
 
 const routes: Routes = [{
   path: '',
-  component: OfferListComponent,
-  children: [{
-    path: 'detail',
-    component: OfferDetailComponent,
-  },{
-    path: 'list',
-    component: OfferListComponent,
-  }]
+  component: OfferComponent,
+  children: [
+  	{path: 'list',component: OfferListComponent,},
+    {path: 'add',component: OfferProposerComponent,},
+    {path: ':id',component: OfferDetailComponent,},
+  ]
 }];
 
 @NgModule({

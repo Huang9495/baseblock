@@ -1,16 +1,481 @@
-<nb-card [size]="breakpoint.width >= breakpoints.xxxl || breakpoint.width < breakpoints.md ? 'large' : 'xlarge'">
-  <nb-tabset fullWidth>
-    <nb-tab tabTitle="Contacts">
-      <div class="contact" *ngFor="let c of contacts">
-        <nb-user [picture]="c.user.picture" [name]="c.user" [title]="c.type" size="large"></nb-user>
-        <i class="i-contact nb-phone"></i>
+<style>
+.btn a {
+    color: #4f5481;
+    font-weight: 700;
+    text-decoration:none;
+}
+
+.btn a:hover{
+  color: #4f5481;
+  font-weight: 700;
+  text-decoration:none;
+}
+</style>
+<!-->
+<div class="row" style="margin-bottom: 20px; font-family:Times">
+  <div class="col-lg-8" style="margin: auto; font-family:Times">
+
+        <div class="row">
+          <div class="col-lg-9" ><!-->
+                  <!--><p-autoComplete [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"></p-autoComplete><!-->
+<!-->
+                  <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid50" [minLength]="1" placeholder="Countries" field="name" [multiple]="true" (onSelect)="onCitySelect($event)">
+                  </p-autoComplete>
+                  <p-dropdown [options]="filter_payments" [(ngModel)]="filter_payment" (onChange)="onPaymentSelect($event.value)"></p-dropdown>
+
+                  <p-dropdown [options]="filter_cities" [(ngModel)]="filter_city" (onChange)="onCitySelect($event.value)"></p-dropdown>
+
+                  <p-dropdown [options]="filter_sorts" [(ngModel)]="filter_sort" (onChange)="onOrders($event.value)"></p-dropdown>
+
+                  <p-dropdown [options]="filter_sorts" [(ngModel)]="filter_sort" (onChange)="onOrders($event.value)"></p-dropdown>
+
+          </div>
+          <div class="col-lg-3" >
+              <button type="button" class="btn btn-primary  btn-sm"  >
+                        <i class="fa fa-plus-square"></i>
+                        <a [routerLink]="[ '/pages/offer/add' ]"><b>Become a offer</b></a>
+              </button>
+          </div>
+        </div>
+
+  </div>
+</div>
+<!-->
+
+<!--><button (click)="toggleLang()">{{'get-lang' | translate}}</button><!-->
+
+<div class="row">
+
+  <div class="col-lg-8" style="margin: auto;">
+
+    <nb-card>
+            <h2>{{ 'welcome' | translate }}</h2>
+            <label>
+              {{ 'hello' | translate }}
+              <select #langSelect (change)="changeLang(langSelect.value)">
+                <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+              </select>
+            </label>
+          
+          <p-dataView #dv [value]="offers" [paginator]="true" [rows]="5" paginatorPosition="bottom" >
+              <p-header>
+                  <h5 style="font-family:Times;"><b>{{ 'list-title-buy' | translate }}</b></h5>
+              </p-header>
+              <p-header>
+                  <div class="row">
+                      <div class="col-lg-9" >
+                              <!--><p-autoComplete [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"></p-autoComplete><!-->
+
+                              <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid30" [minLength]="1" placeholder="Countries" field="name" [multiple]="true" (onSelect)="onCitySelect1($event)">
+                              </p-autoComplete>
+                              <p-dropdown [options]="filter_order_evaluate" [(ngModel)]="filter_sort" (onChange)="onOrders_evaluate($event.value)"></p-dropdown>
+                              <p-dropdown [options]="filter_payments" [(ngModel)]="filter_payment" (onChange)="onPaymentSelect($event.value)"></p-dropdown>
+
+                              <!--><p-dropdown [options]="filter_cities" [(ngModel)]="filter_city" (onChange)="onCitySelect($event.value)"></p-dropdown><!-->
+
+                              <p-dropdown [options]="filter_order_price" [(ngModel)]="filter_sort" (onChange)="onOrders_price($event.value)"></p-dropdown>
+
+                              <!--><p-dropdown [options]="filter_order_frequency" [(ngModel)]="filter_sort" (onChange)="onOrders_frequency($event.value)"></p-dropdown><!-->
+
+                      </div>
+                      <div class="col-lg-3" >
+                          <button type="button" class="btn btn-primary  btn-sm"  >
+                                    <i class="fa fa-plus-square"></i>
+                                    <a [routerLink]="[ '/pages/offer/add' ]"><b>Become a offer</b></a>
+                          </button>
+                      </div>
+                    </div>
+              </p-header>
+
+
+
+
+              <ng-template let-item pTemplate="listItem">
+
+                
+                  <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+                      
+                        <td class="col-lg-3" style="padding-left:4.5rem" >
+                                 <span>{{item.user}} <i  *ngIf="item.user" (click)="selectedProfile=item.user; person_op.toggle($event);" style="font-size:12px" class="fa fa-info-circle"></i> </span>
+                                 <span class="description" style="font-size: .8462rem;color: #999;display: block; font-family:Times;">{{item.location}} </span>
+                        </td>
+                        <td class="col-lg-2" style="padding-left: 2rem;" >
+                             {{item.evaluate}}
+                             <span class="description" style="font-size: .8462rem;color: #999;display: block; font-family:Times; ">{{item.frequency}} </span>
+                        </td>
+                        <td class="col-lg-2" *ngFor="let data of item.payments" style="padding-top:0.3rem" >
+                              <img *ngIf="data.method1" src="../../../assets/images/{{data.method1}}.png" alt="Alipay" style="width:30px;height:30px">
+                              <img *ngIf="data.method2" src="../../../assets/images/{{data.method2}}.png" alt="Wechat" style="width:30px;height:30px">
+                              <img *ngIf="data.method3" src="../../../assets/images/{{data.method3}}.png" alt="Bank" style="width:21px;height:22px">
+                              <img *ngIf="data.method4" src="../../../assets/images/{{data.method4}}.jpg" alt="Cash" style="width:25px;height:25px">
+                        </td>
+                        <td class="col-lg-2" style="padding-top:0.2rem" >  {{item.currency}}  <span style="font-size: .8462rem;color: #999;display: block;font-family:Times; "> {{item.limit}}  </span>   </td>
+                        <button  (click)="onSelectChange(item)" type="button" class="btn btn-primary  btn-sm" style=" font-family:Times;margin-left: 1rem;" >
+                           <span> {{item.price}} </span> <span>@</span> <span> <strong> {{item.type}} </strong></span>
+                        </button>  
+                  </div>
+
+                  
+              </ng-template>
+          </p-dataView>
+    <!-->
+          <nb-card-header ><h5 style="font-family:Times;"><b>Buy ether from these top sellers around the world:</b></h5></nb-card-header> 
+          <nb-card-body>
+
+                <p-table [columns]="cols" [value]="offers" [paginator]="true" [rows]="5">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                        </tr>
+                    </ng-template>
+
+
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        <tr>
+                            <td *ngFor="let col of columns">
+                                {{rowData[col.field]}}
+                            </td>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+
+
+
+            <table class="table table-white" >
+                    
+                    <thead>
+                      <tr>
+                        <th >Account</th>
+                        <th >Credit</th>
+                        <th >Method</th>
+                        <th >Transaction amount</th>
+                      </tr>
+                    </thead>
+                  
+                    <tbody>
+                      <tr *ngFor="let item of offers">
+                          <td style="padding-left:4rem">
+                             <span>{{item.user}} <i  *ngIf="item.user" (click)="selectedProfile=item.user; person_op.toggle($event);" style="font-size:12px" class="fa fa-info-circle"></i> </span>
+                             <span class="description" style="font-size: .8462rem;color: #999;display: block; font-family:Times;">{{item.location}} </span>
+                          </td>
+                          <td style="padding-left: 2rem;">
+                               {{item.evaluate}}
+                               <span class="description" style="font-size: .8462rem;color: #999;display: block; font-family:Times; ">{{item.frequency}} </span>
+                          </td>
+                          <td *ngFor="let data of item.payments" style="padding-left: 2rem;">
+                                <img *ngIf="data.method1" src="../../../assets/images/{{data.method1}}.png" alt="Alipay" style="width:30px;height:30px">
+                                <img *ngIf="data.method2" src="../../../assets/images/{{data.method2}}.png" alt="Wechat" style="width:30px;height:30px">
+                                <img *ngIf="data.method3" src="../../../assets/images/{{data.method3}}.png" alt="Bank" style="width:21px;height:22px">
+                                <img *ngIf="data.method4" src="../../../assets/images/{{data.method4}}.jpg" alt="Cash" style="width:25px;height:25px">
+                          </td>
+                          <td style="padding-left: 2rem;">  {{item.currency}}  <span style="font-size: .8462rem;color: #999;display: block;font-family:Times; "> {{item.limit}}  </span>   </td>
+                          <button  (click)="onSelectChange(item)" type="button" class="btn btn-primary  btn-sm" style=" font-family:Times; margin-top:0.6rem; margin-left: 2rem;">
+                             <span> {{item.price}} </span> <span>@</span> <span> <strong> {{item.type}} </strong></span>
+                          </button>
+
+                         <!--><!-- <td>{{getTime(created)}}</td> -->
+      <!-->                    
+                    </tbody>
+
+                    <div *ngIf="!offers" class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1">
+                       <p class="sw-title-outside-box">Sorry! No offers found.</p>
+                    </div>
+              </table>
+
+          </nb-card-body>
+      <!-->
+
+
+
+    </nb-card>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="col-lg-8" style="margin: auto;">
+
+    <nb-card>
+
+         <p-dataView #dv [value]="offeres" [paginator]="true" [rows]="5" paginatorPosition="bottom" >
+              <p-header>
+                  <h5 style="font-family:Times;"><b>{{'list-title-sell' | translate}}</b></h5>
+              </p-header>
+              <p-header>
+                  <div class="row">
+                      <div class="col-lg-9" >
+                              <!--><p-autoComplete [(ngModel)]="texts" [suggestions]="results" (completeMethod)="search($event)" [multiple]="true"></p-autoComplete><!-->
+
+                              <p-autoComplete [(ngModel)]="countries" [suggestions]="filteredCountriesMultiple" (completeMethod)="filterCountryMultiple($event)" styleClass="wid30" [minLength]="1" placeholder="Countries" field="name" [multiple]="true" (onSelect)="onCitySelect1($event)">
+                              </p-autoComplete>
+                              <p-dropdown [options]="filter_order_evaluate" [(ngModel)]="filter_sort" (onChange)="onOrders_evaluate($event.value)"></p-dropdown>
+                              <p-dropdown [options]="filter_payments" [(ngModel)]="filter_payment" (onChange)="onPaymentSelect($event.value)"></p-dropdown>
+
+                              <!--><p-dropdown [options]="filter_cities" [(ngModel)]="filter_city" (onChange)="onCitySelect($event.value)"></p-dropdown><!-->
+
+                              <p-dropdown [options]="filter_order_price" [(ngModel)]="filter_sort" (onChange)="onOrders_price($event.value)"></p-dropdown>
+
+                              <!--><p-dropdown [options]="filter_order_frequency" [(ngModel)]="filter_sort" (onChange)="onOrders_frequency($event.value)"></p-dropdown><!-->
+
+                      </div>
+                      <div class="col-lg-3" >
+                          <button type="button" class="btn btn-primary  btn-sm"  >
+                                    <i class="fa fa-plus-square"></i>
+                                    <a [routerLink]="[ '/pages/offer/add' ]"><b>Become a offer</b></a>
+                          </button>
+                      </div>
+                    </div>
+              </p-header>
+
+
+
+
+              <ng-template let-item pTemplate="listItem">
+
+                
+                  <div class="ui-g" style="padding: 2em;border-bottom: 1px solid #d9d9d9">
+                      
+                        <td class="col-lg-3" style="padding-left:4.5rem" >
+                                 <span>{{item.user}} <i  *ngIf="item.user" (click)="selectedProfile=item.user; person_op.toggle($event);" style="font-size:12px" class="fa fa-info-circle"></i> </span>
+                                 <span class="description" style="font-size: .8462rem;color: #999;display: block; font-family:Times;">{{item.location}} </span>
+                        </td>
+                        <td class="col-lg-2" style="padding-left: 2rem;" >
+                             {{item.evaluate}}
+                             <span class="description" style="font-size: .8462rem;color: #999;display: block; font-family:Times; ">{{item.frequency}} </span>
+                        </td>
+                        <td class="col-lg-2" *ngFor="let data of item.payments" style="padding-top:0.3rem" >
+                              <img *ngIf="data.method1" src="../../../assets/images/{{data.method1}}.png" alt="Alipay" style="width:30px;height:30px">
+                              <img *ngIf="data.method2" src="../../../assets/images/{{data.method2}}.png" alt="Wechat" style="width:30px;height:30px">
+                              <img *ngIf="data.method3" src="../../../assets/images/{{data.method3}}.png" alt="Bank" style="width:21px;height:22px">
+                              <img *ngIf="data.method4" src="../../../assets/images/{{data.method4}}.jpg" alt="Cash" style="width:25px;height:25px">
+                        </td>
+                        <td class="col-lg-2" style="padding-top:0.2rem" >  {{item.currency}}  <span style="font-size: .8462rem;color: #999;display: block;font-family:Times; "> {{item.limit}}  </span>   </td>
+                        <button  (click)="onSelectChange(item)" type="button" class="btn btn-primary  btn-sm" style=" font-family:Times;margin-left: 1rem;" >
+                           <span> {{item.price}} </span> <span>@</span> <span> <strong> {{item.type}} </strong></span>
+                        </button>
+   
+                  </div>
+
+                  
+              </ng-template>
+          </p-dataView>
+
+    </nb-card>
+  </div>
+
+</div>
+
+
+
+<!--
+
+
+<style>
+.user-timeline {
+    padding: 0;
+    margin: 5px 0 15px;
+    list-style: none;
+    position: relative;
+}
+
+.user-timeline-compact>li {
+    padding-bottom: 35px;
+}
+.user-timeline>li {
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    padding-bottom: 27px;
+}
+
+.user-timeline-compact .user-timeline-date {
+    float: right;
+    text-transform: capitalize;
+    margin-bottom: 0;
+    line-height: 22px;
+    font-size: 14px;
+}
+.user-timeline-date {
+    text-transform: uppercase;
+    color: #737373;
+    margin-bottom: 8px;
+}
+
+.user-timeline-compact .user-timeline-title {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.user-timeline-compact .user-timeline-description {
+    color: #737373;
+    margin-top: 4px;
+    font-size: 13px;
+}
+.user-timeline-compact:after, .user-timeline-compact:before, .user-timeline-compact>li.latest:before {
+    background-color: #f6c163;
+}
+.user-timeline>li.latest:before {
+    background-color: #4285f4;
+}
+.user-timeline-compact>li:before {
+    border: 1px solid #f6c163;
+}
+.user-timeline>li:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 2px;
+    height: 16px;
+    width: 16px;
+    background-color: #FFF;
+    border-radius: 50%;
+    border: 1px solid #4285f4;
+}
+
+.user-timeline:after {
+    left: 4px;
+    bottom: -2px;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+}
+
+.user-timeline:after, .user-timeline:before {
+    position: absolute;
+    background-color: #4285f4;
+    content: "";
+}
+
+</style>
+
+      <div class="col-12 col-lg-6 ">
+        <div class="card">
+          <div class="card-header">Latest Activity
+
+          </div>
+          <div class="card-body">
+            <ul class="user-timeline user-timeline-compact">
+              <li class="latest">
+                <div class="user-timeline-date">Just Now</div>
+                <div class="user-timeline-title">Create New Page</div>
+                <div class="user-timeline-description">Vestibulum lectus nulla, maximus in eros non, tristique.</div>
+              </li>
+              <li>
+                <div class="user-timeline-date">Today - 15:35</div>
+                <div class="user-timeline-title">Back Up Theme</div>
+                <div class="user-timeline-description">Vestibulum lectus nulla, maximus in eros non, tristique.</div>
+              </li>
+              <li>
+                <div class="user-timeline-date">Yesterday - 10:41</div>
+                <div class="user-timeline-title">Changes In The Structure</div>
+                <div class="user-timeline-description">Vestibulum lectus nulla, maximus in eros non, tristique.      </div>
+              </li>
+              <li>
+                <div class="user-timeline-date">Yesterday - 3:02</div>
+                <div class="user-timeline-title">Fix the Sidebar</div>
+                <div class="user-timeline-description">Vestibulum lectus nulla, maximus in eros non, tristique.</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </div>
+-->
+
+
+
+
+
+
+
+
+
+
+<p-overlayPanel #person_op>
+      <div class="notification-block" *ngIf="selectedProfile">
+        <div class="text"> {{selectedProfile}}
+          <span class="from">Budapest</span> bought
+          <span class="count">0.684</span>&nbsp;<span class="currency">btc</span>
+          worth of BERRY
+        </div>
+        <div class="notification-time">3 hours ago</div>
       </div>
-    </nb-tab>
-    <nb-tab tabTitle="Recent">
-      <div class="contact" *ngFor="let c of recent">
-        <nb-user [picture]="c.user.picture" [name]="c.user" [title]="c.type" size="large"></nb-user>
-        <span class="time">{{ c.time }}</span>
+</p-overlayPanel>
+
+
+<p-dialog header="Invitation" [(visible)]="display">
+
+      <div class="row" >
+        <label label class="col-sm-3 " style="font-size:13px;" >Payment method</label>
+        <div class="col-sm-9">
+          <select class=" custom-select d-block w-100" [(ngModel)]="model.payment.method" >
+            <option  >Cash(in person)</option>
+            <option  >Bank transfer</option>
+            <option >Cash deposit</option>
+            <option  >PayPal</option>
+            <option >International wire</option>
+            <option  >Other</option>
+            <option  >Alipay</option>
+            <option  >WeChat Pay</option>
+          </select>
+        </div>
       </div>
-    </nb-tab>
-  </nb-tabset>
-</nb-card>
+
+      <div class="row" >
+        <label label class="col-sm-3 " style="font-size:13px;" >Payment currency</label>
+        <div class="col-sm-9">
+          <select class=" custom-select d-block w-100"  [(ngModel)]="model.payment.currency" >
+            <option  >Dollar</option>
+            <option  >Euro</option>
+            <option  >Rmb</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" >
+        <label label class="col-sm-3 " style="font-size:13px;" >Token</label>
+        <div class="col-sm-9">
+          <select class=" custom-select d-block w-100" [(ngModel)]="model.token.name" >
+            <option  >Eth</option>
+          </select>
+        </div>
+      </div>
+
+      <div class=" row" style="margin-top:10px;">
+          <label class="col-sm-3 " style="font-size:13px;">Amount in Ether</label>
+          <div class="col-sm-9">
+             <input type="number" style="padding: 0.2rem 0.4rem;" class="custom-select d-block w-100 form-control" placeholder="1" ng-model="model.token.amount" (change)="setAmount($event)">
+          </div>
+      </div>
+
+      <div *ngIf="model" class="notification-block" style="color: #4f555f;margin-left: 20px;margin-right: 20px;" >
+
+        <div class='row'>
+            <div class="col-sm-6" style="font-size: 14px;color: #4f5481;margin-bottom: 10px;"><b>Buyer:</b>
+                <span style="font-size: 12;color: #4f5481;margin-bottom: 10px;">{{model.sender}} </span>
+            </div>
+
+            <div class="col-sm-6" style="font-size: 14px;color: #4f5481;margin-bottom: 10px;"><b>Seller:</b>
+                <span style="font-size: 12;color: #4f5481;margin-bottom: 10px;">{{model.receiver}} </span>
+            </div>
+        </div>
+
+        <div style="font-size: 14px;color: #4f5481;margin-bottom: 10px;"><b>Payment</b>
+          <span style="font-size: 12;color: #4f5481;margin-bottom: 10px;"> <b>{{model.token.name}}:</b>  {{model.token.amount}}</span> ,  <!-- {{ model.value_eth}} {{ model.payment.value }} {{model.payment.method}}-->
+          <span style="font-size: 12;color: #4f5481;margin-bottom: 10px;"> <b>{{model.payment.currency}}:</b>{{model.payment.total}}  </span>
+        </div>
+
+        <div style="font-size: 14px;color: #4f5481;margin-bottom: 10px;"><b>Payment method:</b>
+            <span style="font-size: 12;color: #4f5481;margin-bottom: 10px;">{{model.payment.method}} </span>
+        </div>
+      </div>
+
+      <div class="row">
+          <button type="button" class="btn btn-primary  btn-sm" (click)="sendTransactionRequest();display=false;" style="cursor:pointer;margin-left: 35px;margin-right: 15px;" >Invite</button>
+          <button type="button" class="btn btn-primary  btn-sm" style="cursor:pointer;background-color: #e24046;" (click)="display=false" label="Reject">Cancel</button>
+      </div>
+
+</p-dialog>
